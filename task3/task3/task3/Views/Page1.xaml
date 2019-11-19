@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:task3="clr-namespace:task3.Controls"
+             x:Class="task3.Views.Page1">
+    
+    <ContentPage.Content>
+        <task3:VideoPlayer Source="https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4" AutoPlay="True"/>
+    </ContentPage.Content>
+</ContentPage>
