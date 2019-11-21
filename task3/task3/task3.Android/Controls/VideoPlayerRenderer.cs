@@ -31,15 +31,13 @@ namespace task3.Droid.Controls
         {
             base.OnElementChanged(args);
 
-            if (args.NewElement != null)
-            {
-                if (Control == null)
-                {
+            if (args.NewElement != null && Control == null)
+            {             
                     videoView = new VideoView(Context);
 
                     ARelativeLayout relativeLayout = new ARelativeLayout(Context);
                     relativeLayout.AddView(videoView);
-
+                
                     ARelativeLayout.LayoutParams layoutParams =
                         new ARelativeLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
                     layoutParams.AddRule(LayoutRules.CenterInParent);
@@ -51,12 +49,15 @@ namespace task3.Droid.Controls
 
                     SetNativeControl(relativeLayout);
                     videoView.Prepared += OnVideoViewPrepared;
-                }
+                    
             }
 
-            SetTransportControls();
-            SetSource();
+            if (args.NewElement == null)
+            {
+                videoView.Prepared -= OnVideoViewPrepared;
+            }
 
+            SetSource(Element.Source);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -65,19 +66,14 @@ namespace task3.Droid.Controls
 
             if (args.PropertyName == VideoPlayer.SourceProperty.PropertyName)
             {
-                SetSource();
+                SetSource(Element.Source);
             }
         }
 
-        private void SetTransportControls()
+       
+        private void SetSource(String source)
         {
-            mediaController = new MediaController(Context);
-            mediaController.SetMediaPlayer(videoView);
-            videoView.SetMediaController(mediaController);
-        }
-        private void SetSource()
-        {
-            string uri = Element.Source;
+            string uri = source;
 
             if (!String.IsNullOrWhiteSpace(uri))
                 videoView.SetVideoURI(Android.Net.Uri.Parse(uri));

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
 namespace task3.Controls
@@ -15,18 +15,9 @@ namespace task3.Controls
             set => SetValue(IsExpandableProperty, value); 
         }
 
-        public ExtendableEditor()
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)       
         {
-            TextChanged += OnTextChanged;
-        }
-
-        ~ExtendableEditor()
-        {
-            TextChanged -= OnTextChanged;
-        }
-
-        private void OnTextChanged(object sender, TextChangedEventArgs e)
-        {
+            base.OnPropertyChanged(propertyName);
             if (IsExpandable) InvalidateMeasure();
         }
 

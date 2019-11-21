@@ -32,8 +32,6 @@ namespace task3.ViewModels
            
         }
 
-      
-
         private async  void PushPage1()
         {
             await NavigationService.NavigateAsync("Page1");
